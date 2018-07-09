@@ -15,6 +15,13 @@ Organizze Cli is a project independent to manager on finance by line command
  - Get all "Despesa" of month current
  - Get all "Receita" of month current
  
+### Installing
+
+ - Clone this repository
+ - Run ```npm install```
+ - Configure your access on env.js
+ - Run ```organizzer help```
+ 
 ### Contribuing
 
 You can contribuing create suggestions on test applications, create your PR or an issue.

@@ -1,0 +1,22 @@
+{
+  "name": "organizzer-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "organizzer": "./bin/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "prettyjson": "^1.2.1"
+  },
+  "devDependencies": {
+    "jest": "^23.3.0"
+  }
+}

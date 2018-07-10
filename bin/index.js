@@ -23,6 +23,12 @@ const commands = {
       exec: Categories.list
     }
   },
+  more: {
+    category: {
+      description: '',
+      exec: Categories.see
+    }
+  },
 };
 const action = argv._.shift();
 const type = argv._.shift();

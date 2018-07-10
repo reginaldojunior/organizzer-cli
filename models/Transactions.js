@@ -3,7 +3,7 @@ const env        = require('../env')
 const helpers    = require('../helpers')
 
 const Transactions = {
-    getTransactionsCurrentMonth: new Promise((resolve, reject) => {
+    getTransactionsCurrentMonth: () => new Promise((resolve, reject) => {
         axios.get(helpers.buildUrl('transactions'), {auth: env.auth}).then(response => {
             return resolve(response.data)
         }).catch(error => {

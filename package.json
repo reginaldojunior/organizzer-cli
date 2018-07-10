@@ -10,10 +10,16 @@
   "author": "",
   "license": "MIT",
   "bin": {
-    "organizzer": "./bin/index.js"
+    "organizze": "./bin/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
+    "configstore": "^3.1.2",
+    "figlet": "^1.2.0",
+    "inquirer": "^6.0.0",
+    "minimist": "^1.2.0",
     "prettyjson": "^1.2.1"
   },
   "devDependencies": {

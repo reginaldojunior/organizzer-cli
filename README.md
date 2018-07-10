@@ -6,6 +6,8 @@
 
 Organizze CLI is a independent project to manage finances on [Organizze](https://organizze.com.br) through command line
 
+[Docs](https://github.com/organizze/api-doc)
+
 ### Todo
 
 - Auth
@@ -36,11 +38,11 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
   - [ ] List users(that's business only)
   - [ ] Get user details
 - Categories
-  - [ ] List categories
-  - [ ] Get details of a category
-  - [ ] Create a category
-  - [ ] Update a category
-  - [ ] Delete a category
+  - [x] List categories
+  - [x] Get details of a category
+  - [x] Create a category
+  - [x] Update a category
+  - [x] Delete a category
 
 ### Installing
 

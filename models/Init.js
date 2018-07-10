@@ -1,6 +1,7 @@
 const Configstore = require('configstore');
 const config = new Configstore('organizze');
 const figlet = require('figlet');
+const chalk = require('chalk');
 const inquirer = require('inquirer');
 const show = () => new Promise((resolve, reject) => {
   figlet('Organizze', (err, data) => {

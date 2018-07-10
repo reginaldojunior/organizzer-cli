@@ -20,9 +20,11 @@
     "figlet": "^1.2.0",
     "inquirer": "^6.0.0",
     "minimist": "^1.2.0",
+    "moment": "^2.22.2",
     "prettyjson": "^1.2.1"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "jest": "^23.3.0"
   }
 }

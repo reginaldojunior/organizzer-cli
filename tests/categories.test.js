@@ -34,7 +34,26 @@ describe('Categories test', () => {
       'updated at': '10/07/2018',
     };
 
-    mock.onGet('categories').reply(200, response)
-    expect(Categories.see({ _: ['Lazer'] })).resolves.toEqual(result);
+    mock.onGet('categories').reply(200, response);
+    expect(Categories.more({ _: ['Lazer'] })).resolves.toEqual(result);
+  });
+
+  test('Create category', () => {
+    const response = [
+      {
+        id: 0,
+        name: 'Lazer',
+        created_at: '2018-07-10 17:15:00',
+        updated_at: '2018-07-10 17:15:00'
+      }
+    ];
+
+    const result = {
+      category: 'Lazer',
+      status: 'Category created!',
+    };
+
+    mock.onPost('categories').reply(200, response)
+    expect(Categories.create({ _: ['Lazer'] })).resolves.toEqual(result);
   });
 });

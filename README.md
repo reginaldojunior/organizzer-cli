@@ -40,7 +40,7 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
 - Categories
   - [x] List categories
   - [x] Get details of a category
-  - [ ] Create a category
+  - [x] Create a category
   - [ ] Update a category
   - [ ] Delete a category
 

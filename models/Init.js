@@ -38,6 +38,7 @@ module.exports = async () => {
   config.set('username', r.username);
   config.set('token', r.token);
 
-  return r;
+  console.log(chalk.green('Success! Your Organizze account has been authenticated.'));
+  return false;
 };
 

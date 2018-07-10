@@ -21,7 +21,7 @@ const commands = {
 };
 let firstCommand = argv._.shift();
 
-if (!config.username || !config.token) {
+if (!config.get('username') || !config.get('token')) {
   firstCommand = 'init';
 }
 
@@ -50,11 +50,13 @@ const run = async () => {
   try {
     // Need to think about some way of args injection
     let results = await commands[firstCommand].exec();
-    console.log(prettyjson.render(results));
-    return 0;
+    if (results) {
+      console.log(prettyjson.render(results));
+    }
+    return;
   } catch (e) {
     console.error(chalk.red(e));
-    return 0;
+    return;
   }
 };
 

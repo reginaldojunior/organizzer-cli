@@ -48,8 +48,7 @@ if (
 
 const run = async () => {
   try {
-    // Need to think about some way of args injection
-    let results = await commands[firstCommand].exec();
+    let results = await commands[firstCommand].exec(argv);
     if (results) {
       console.log(prettyjson.render(results));
     }

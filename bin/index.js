@@ -10,36 +10,44 @@ const config = new Configstore('organizze');
 const prettyjson = require('prettyjson');
 const chalk = require('chalk');
 const commands = {
-  list_transactions: {
-    description: 'List transactions of current month',
-    exec: Transactions.getTransactionsCurrentMonth
+  create: {
+    transaction: {
+      description: '',
+      exec: () => {}
+    }
   },
-  init: {
-    description: 'Do the auth thing',
-    exec: InitUser
-  }
+  list: {
+    categories: {
+      description: '',
+      exec: () => {}
+    }
+  },
 };
-let firstCommand = argv._.shift();
+const action = argv._.shift();
+const type = argv._.shift();
 
 if (!config.get('username') || !config.get('token')) {
-  firstCommand = 'init';
+  InitUser().then(() => process.exit());
 }
 
 if (
-  !firstCommand ||
-  Object.keys(commands).indexOf(firstCommand) === -1 ||
-  firstCommand === 'help'
+  !action ||
+  Object.keys(commands).indexOf(action) === -1 ||
+  Object.keys(commands[action]).indexOf(type) === -1 ||
+  action === 'help'
 ) {
-  if (firstCommand !== 'help') {
+  if (action !== 'help') {
     console.log(chalk.blue('Sorry but this command does not exists :('));
   }
 
   let commandsData = {};
 
-  Object.keys(commands).forEach(k => {
-    let obj = commands[k];
-    delete obj.exec;
-    commandsData[k] = obj;
+  Object.keys(commands).forEach(commandAction => {
+    let commandsList = commands[commandAction];
+
+    Object.keys(commandsList).forEach(key => {
+      commandsData[key] = commandsList[key].description;
+    });
   });
 
   console.log(prettyjson.render(commandsData));
@@ -48,7 +56,7 @@ if (
 
 const run = async () => {
   try {
-    let results = await commands[firstCommand].exec(argv);
+    let results = await commands[action][type].exec(argv);
     if (results) {
       console.log(prettyjson.render(results));
     }

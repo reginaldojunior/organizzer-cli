@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 const Transactions = require('../models/Transactions');
+const Categories = require('../models/Categories');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -19,7 +20,7 @@ const commands = {
   list: {
     categories: {
       description: '',
-      exec: () => {}
+      exec: Categories.list
     }
   },
 };

@@ -56,7 +56,7 @@ module.exports = {
   },
   create: async (args) => {
     argscheck(args);
-    const name = args._.shift();
+    const name = args._.join(' ');
     let {data} = await api.post('/categories', { name });
     return {
       status: 'Category created!',

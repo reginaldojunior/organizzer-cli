@@ -59,7 +59,7 @@ if (
   Object.keys(commands[action]).indexOf(type) === -1 ||
   action === 'help'
 ) {
-  if (action !== 'help') {
+  if (action !== 'help' && (action || '').length > 0) {
     console.log(chalk.blue('Sorry but this command does not exists :('));
   }
 
@@ -69,7 +69,7 @@ if (
     let commandsList = commands[commandAction];
 
     Object.keys(commandsList).forEach(key => {
-      commandsData[key] = commandsList[key].description;
+      commandsData[`${commandAction } ${key}`] = commandsList[key].description;
     });
   });
 

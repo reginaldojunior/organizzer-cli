@@ -9,8 +9,8 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
 ### Todo
 
 - Auth
-  - [ ] Prompt asking for API Key, email
-  - [ ] Local file in `$HOME`
+  - [x] Prompt asking for API Key, email
+  - [x] Local file in `$HOME`
 - Bank Accounts
   - [ ] List bank accounts
   - [ ] Get details of a bank account

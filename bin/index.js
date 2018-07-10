@@ -35,6 +35,12 @@ const commands = {
       exec: Categories.edit
     }
   },
+  delete: {
+    category: {
+      description: '',
+      exec: Categories.delete
+    }
+  },
 };
 const action = argv._.shift();
 const type = argv._.shift();

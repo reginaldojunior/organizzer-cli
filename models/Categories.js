@@ -28,6 +28,16 @@ const argscheck = args => {
 };
 
 module.exports = {
+  delete: async (args) => {
+    argscheck(args);
+    const name = args._.shift();
+    const found = await findCategory(name);
+    let {data} = await api.delete(`/categories/${found.id}`);
+    return {
+      status: 'Category deleted!',
+      category: data.name
+    };
+  },
   edit: async (args) => {
     argscheck(args);
     const oldName = args._.shift();

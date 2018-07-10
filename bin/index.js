@@ -45,9 +45,14 @@ const commands = {
       exec: Categories.delete
     }
   },
+  reset: {
+    description: 'Reset your tokens!',
+    exec: InitUser
+  }
 };
 const action = argv._.shift();
 const type = argv._.shift();
+
 
 if (!config.get('username') || !config.get('token')) {
   InitUser().then(() => process.exit());
@@ -56,7 +61,10 @@ if (!config.get('username') || !config.get('token')) {
 if (
   !action ||
   Object.keys(commands).indexOf(action) === -1 ||
-  Object.keys(commands[action]).indexOf(type) === -1 ||
+  (
+    !!commands[action].exec === false &&
+    Object.keys(commands[action]).indexOf(type) === -1
+  ) ||
   action === 'help'
 ) {
   if (action !== 'help' && (action || '').length > 0) {
@@ -79,7 +87,8 @@ if (
 
 const run = async () => {
   try {
-    let results = await commands[action][type].exec(argv);
+    let group = commands[action];
+    let results = await (group.exec ? group : group[type]).exec(argv);
     if (results) {
       console.log(prettyjson.render(results));
     }

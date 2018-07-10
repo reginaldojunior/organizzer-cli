@@ -56,4 +56,26 @@ describe('Categories test', () => {
     mock.onPost('categories').reply(200, response)
     expect(Categories.create({ _: ['Lazer'] })).resolves.toEqual(result);
   });
+
+  test('Update category', () => {
+    const response = [
+      {
+        id: 0,
+        name: 'Lazer',
+        created_at: '2018-07-10 17:15:00',
+        updated_at: '2018-07-10 17:15:00'
+      }
+    ];
+
+    const result = {
+      category: 'Lazer 2',
+      status: 'Category updated!',
+    };
+
+    const responsePut = Object.assign({}, response, { name: 'Lazer 2' })
+
+    mock.onGet('categories').reply(200, response);
+    mock.onPut(`categories/0`).reply(200, responsePut)
+    expect(Categories.edit({ _: ['Lazer', 'Lazer 2'] })).resolves.toEqual(result);
+  });
 });

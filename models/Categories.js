@@ -12,6 +12,10 @@ const findCategory = async (categoryName) => {
     }
   });
 
+  if (!found) {
+    throw new Error('This category was not found!');
+  }
+
   return found;
 };
 
@@ -24,6 +28,22 @@ const argscheck = args => {
 };
 
 module.exports = {
+  edit: async (args) => {
+    argscheck(args);
+    const oldName = args._.shift();
+    const name = args._.shift();
+
+    if (!name) {
+      throw new Error('You must provide a new name too!');
+    }
+
+    const found = await findCategory(oldName);
+    let {data} = await api.put(`/categories/${found.id}`, { name });
+    return {
+      status: 'Category updated!',
+      category: data.name
+    };
+  },
   create: async (args) => {
     argscheck(args);
     const name = args._.shift();
@@ -41,10 +61,6 @@ module.exports = {
     argscheck(args);
     const categoryName = args._.shift();
     let found = await findCategory(categoryName);
-
-    if (!found) {
-      throw new Error('This category was not found!');
-    }
     
     let created_at = moment(found.created_at).format('DD/MM/YYYY').toString();
     let updated_at = moment(found.created_at).format('DD/MM/YYYY').toString();

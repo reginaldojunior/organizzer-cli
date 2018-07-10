@@ -26,7 +26,13 @@ const commands = {
   more: {
     category: {
       description: '',
-      exec: Categories.see
+      exec: Categories.more
+    }
+  },
+  edit: {
+    category: {
+      description: '',
+      exec: Categories.edit
     }
   },
 };

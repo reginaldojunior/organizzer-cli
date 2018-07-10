@@ -15,29 +15,33 @@ const commands = {
     transaction: {
       description: '',
       exec: () => {}
+    },
+    category: {
+      description: 'Create category: organizze create category <title>',
+      exec: Categories.create
     }
   },
   list: {
     categories: {
-      description: '',
+      description: 'List categories',
       exec: Categories.list
     }
   },
   more: {
     category: {
-      description: '',
+      description: 'Show category details: organizze more category <title>',
       exec: Categories.more
     }
   },
   edit: {
     category: {
-      description: '',
+      description: 'Edit category title: organizze edit category <old-title> <new-title>',
       exec: Categories.edit
     }
   },
   delete: {
     category: {
-      description: '',
+      description: 'Delete category: organizze delete category <title>',
       exec: Categories.delete
     }
   },

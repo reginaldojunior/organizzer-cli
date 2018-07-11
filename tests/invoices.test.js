@@ -16,6 +16,7 @@ const creditCardExample = {
   created_at: '2018-06-22T16:45:30-03:00',
   updated_at: '2018-09-01T18:18:48-03:00'
 };
+
 const invoiceExample = {
   id: 180,
   date: '2015-01-15',
@@ -27,6 +28,26 @@ const invoiceExample = {
   previous_balance_cents: 0,
   credit_card_id: 3
 };
+
+const transactionExample = {
+  id: 19,
+  description: 'Gasto no cartão',
+  date: '2015-06-03',
+  paid: true,
+  amount_cents: -5000,
+  total_installments: 1,
+  installment: 1,
+  recurring: false,
+  account_id: 3,
+  account_type: 'CreditCard',
+  category_id: 21,
+  contact_id: null,
+  notes: '',
+  attachments_count: 0,
+  created_at: '2015-08-04T20:13:49-03:00',
+  updated_at: '2015-08-04T20:14:04-03:00'
+};
+const fullInvoice = Object.assign(invoiceExample, { transactions: [transactionExample] });
 
 mock.onGet('credit_cards').reply(200, [creditCardExample]);
 mock.onGet(`credit_cards/${creditCardExample.id}/invoices`).reply(200, [invoiceExample]);
@@ -43,23 +64,66 @@ describe('Invoices test', () => {
     expect(Invoices.list({ _: ['Visa'] })).resolves.toEqual([result]);
   });
 
-  /*
   test('Get invoice details', () => {
-    const response = [bankInvoiceExample];
+    const url = `credit_cards/${creditCardExample.id}/invoices/${invoiceExample.id}`;
 
-    const result = {
-      name: 'Bradesco CC',
-      description: 'Bradesco',
-      archived: 'no',
-      default: 'yes',
-      type: 'checking',
-      'created at': '22/06/2017',
-      'updated at': '31/08/2017',
+    let result = {
+      'start date': '03/12/2014',
+      'end date': '02/01/2015',
+      amount: 0,
+      payment: 0,
+      balance: 0,
+      transactions: [
+        {
+          description: 'Gasto no cartão',
+          date: '03/06/2015',
+          paid: 'yes',
+          amount: -50,
+          'total installments': 1,
+          installment: 1,
+          recurring: 'no',
+          'account type': 'CreditCard',
+          notes: '',
+          attachments: 0
+        }
+      ]
     };
 
-    mock.onGet('invoices').reply(200, response);
-    expect(Invoices.more({ _: ['Bradesco'] })).resolves.toEqual(result);
+    mock.onGet(url).reply(200, fullInvoice);
+    expect(Invoices.more({ _: ['Visa'], invoice: '2014-12-03' })).resolves.toEqual(result);
   });
+
+  test('Pay invoice', () => {
+    const url = `credit_cards/${creditCardExample.id}/invoices/${invoiceExample.id}`;
+    const payUrl = `${url}/payments`;
+
+    let result = {
+      'start date': '03/12/2014',
+      'end date': '02/01/2015',
+      amount: 0,
+      payment: 0,
+      balance: 0,
+      transactions: [
+        {
+          description: 'Gasto no cartão',
+          date: '03/06/2015',
+          paid: 'yes',
+          amount: -50,
+          'total installments': 1,
+          installment: 1,
+          recurring: 'no',
+          'account type': 'CreditCard',
+          notes: '',
+          attachments: 0
+        }
+      ]
+    };
+
+    mock.onGet(url).reply(200, fullInvoice);
+    mock.onGet(payUrl).reply(200, invoiceExample);
+    expect(Invoices.pay({ _: ['Visa'], invoice: '2014-12-03' })).resolves.toEqual({ status: 'Invoice paid successfully!' });
+  });
+  /*
 
   test('Create invoice', () => {
     const response = bankInvoiceExample;

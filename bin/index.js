@@ -3,6 +3,7 @@
 const Transactions = require('../models/Transactions');
 const Categories = require('../models/Categories');
 const BankAccounts = require('../models/BankAccounts');
+const CreditCards = require('../models/CreditCards');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -24,7 +25,11 @@ const commands = {
     account: {
       description: 'Create account: organizzer create account <title>',
       exec: BankAccounts.create
-    }
+    },
+    credit_card: {
+      description: 'Create credit card: organizzer create credit_card <title>',
+      exec: CreditCards.create
+    },
   },
   list: {
     categories: {
@@ -34,6 +39,10 @@ const commands = {
     accounts: {
       description: 'List bank accounts: organizzer list accounts',
       exec: BankAccounts.list
+    },
+    credit_cards: {
+      description: 'List credit cards: organizzer list credit_cards',
+      exec: CreditCards.list
     },
     transactions: {
       description: 'List all transactions of month: organizzer list transactions',
@@ -49,6 +58,10 @@ const commands = {
       description: 'Show account details: organizzer more account <title>',
       exec: BankAccounts.more
     },
+    credit_card: {
+      description: 'Show credit card details: organizzer more credit_card <title>',
+      exec: CreditCards.more
+    },
     transaction: {
       description: 'Get details a transaction: organizzer more transaction <id>',
       exec: Transactions.more
@@ -62,7 +75,11 @@ const commands = {
     account: {
       description: 'Edit account title: organizzer edit account <old-title> <new-title>',
       exec: BankAccounts.edit
-    }
+    },
+    credit_card: {
+      description: 'Edit credit card title: organizzer edit credit_card <old-title> <new-title>',
+      exec: BankAccounts.edit
+    },
   },
   delete: {
     category: {
@@ -72,7 +89,11 @@ const commands = {
     account: {
       description: 'Delete account: organizzer delete account <title>',
       exec: BankAccounts.delete
-    }
+    },
+    credit_card: {
+      description: 'Delete credit card: organizzer delete credit_card <title>',
+      exec: BankAccounts.delete
+    },
   },
   reset: {
     description: 'Reset your tokens!',

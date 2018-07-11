@@ -14,10 +14,10 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
   - [x] Prompt asking for API Key, email
   - [x] Local file in `$HOME`
 - Bank Accounts
-  - [ ] List bank accounts
-  - [ ] Get details of a bank account
-  - [ ] Create bank account
-  - [ ] Delete bank account
+  - [x] List bank accounts
+  - [x] Get details of a bank account
+  - [x] Create bank account
+  - [x] Delete bank account
 - Credit Cards
   - [ ] List credit cards
   - [ ] Get details of a credit card

@@ -2,6 +2,7 @@
 
 const Transactions = require('../models/Transactions');
 const Categories = require('../models/Categories');
+const BankAccounts = require('../models/BankAccounts');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -19,30 +20,50 @@ const commands = {
     category: {
       description: 'Create category: organizze create category <title>',
       exec: Categories.create
+    },
+    account: {
+      description: 'Create account: organizzer create account <title>',
+      exec: BankAccounts.create
     }
   },
   list: {
     categories: {
       description: 'List categories',
       exec: Categories.list
-    }
+    },
+    accounts: {
+      description: 'List bank accounts',
+      exec: BankAccounts.list
+    },
   },
   more: {
     category: {
       description: 'Show category details: organizze more category <title>',
       exec: Categories.more
+    },
+    account: {
+      description: 'Show account details: organizzer more account <title>',
+      exec: BankAccounts.more
     }
   },
   edit: {
     category: {
       description: 'Edit category title: organizze edit category <old-title> <new-title>',
       exec: Categories.edit
+    },
+    account: {
+      description: 'Edit account title: organizzer edit account <old-title> <new-title>',
+      exec: BankAccounts.edit
     }
   },
   delete: {
     category: {
       description: 'Delete category: organizze delete category <title>',
       exec: Categories.delete
+    },
+    account: {
+      description: 'Delete account: organizzer delete account <title>',
+      exec: BankAccounts.delete
     }
   },
   reset: {

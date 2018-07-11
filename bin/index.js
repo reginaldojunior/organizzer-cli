@@ -50,13 +50,14 @@ const commands = {
     exec: InitUser
   }
 };
+
+if (!config.get('username') || !config.get('token')) {
+  argv._.unshift('reset');
+}
+
 const action = argv._.shift();
 const type = argv._.shift();
 
-
-if (!config.get('username') || !config.get('token')) {
-  InitUser().then(() => process.exit());
-}
 
 if (
   !action ||

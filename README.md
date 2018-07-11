@@ -29,9 +29,9 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
   - [x] Update a credit card
   - [x] Delete a credit card
 - Invoices
-  - [ ] List invoices
-  - [ ] Get invoice details
-  - [ ] Invoice's payments
+  - [x] List invoices
+  - [x] Get invoice details
+  - [x] Pay invoice
 - Transactions
   - [x] List transactions
   - [x] Get details of a transaction

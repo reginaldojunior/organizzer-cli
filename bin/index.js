@@ -93,7 +93,7 @@ const commands = {
     },
     credit_card: {
       description: 'Delete credit card: organizzer delete credit_card <title>',
-      exec: BankAccounts.delete
+      exec: CreditCards.delete
     },
   },
   reset: {

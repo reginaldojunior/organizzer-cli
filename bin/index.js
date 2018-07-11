@@ -2,6 +2,7 @@
 
 const Transactions = require('../models/Transactions');
 const Categories = require('../models/Categories');
+const BankAccounts = require('../models/BankAccounts');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -17,40 +18,60 @@ const commands = {
       exec: () => {}
     },
     category: {
-      description: 'Create category: organizze create category <title>',
+      description: 'Create category: organizzer create category <title>',
       exec: Categories.create
+    },
+    account: {
+      description: 'Create account: organizzer create account <title>',
+      exec: BankAccounts.create
     }
   },
   list: {
     categories: {
-      description: 'List categories',
+      description: 'List categories: organizzer list categories',
       exec: Categories.list
     },
+    accounts: {
+      description: 'List bank accounts: organizzer list accounts',
+      exec: BankAccounts.list
+    },
     transactions: {
-      description: 'List all transactions of month: organizze list transactions',
+      description: 'List all transactions of month: organizzer list transactions',
       exec: Transactions.list
     }
   },
   more: {
     category: {
-      description: 'Show category details: organizze more category <title>',
+      description: 'Show category details: organizzer more category <title>',
       exec: Categories.more
     },
+    account: {
+      description: 'Show account details: organizzer more account <title>',
+      exec: BankAccounts.more
+    },
     transaction: {
-      description: 'Get details a transaction: organizze more transaction <id>',
+      description: 'Get details a transaction: organizzer more transaction <id>',
       exec: Transactions.more
     }
   },
   edit: {
     category: {
-      description: 'Edit category title: organizze edit category <old-title> <new-title>',
+      description: 'Edit category title: organizzer edit category <old-title> <new-title>',
       exec: Categories.edit
+    },
+    account: {
+      description: 'Edit account title: organizzer edit account <old-title> <new-title>',
+      exec: BankAccounts.edit
     }
   },
   delete: {
     category: {
-      description: 'Delete category: organizze delete category <title>',
+      description: 'Delete category: organizzer delete category <title>',
       exec: Categories.delete
+    },
+    account: {
+      description: 'Delete account: organizzer delete account <title>',
+      exec: BankAccounts.delete
     }
   },
   reset: {

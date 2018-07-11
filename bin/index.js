@@ -58,7 +58,6 @@ if (!config.get('username') || !config.get('token')) {
 const action = argv._.shift();
 const type = argv._.shift();
 
-
 if (
   !action ||
   Object.keys(commands).indexOf(action) === -1 ||

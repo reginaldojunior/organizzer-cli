@@ -9,7 +9,7 @@ build:
             - npm install
     tests:
         before:
-            - vendor/bin/phpunit --coverage-clover=laravel-test-examples-coverage
+            - npm test --coverage-clover=clover
         override:
             -
                 command: 'npm test coverage-test'

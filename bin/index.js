@@ -4,6 +4,7 @@ const Transactions = require('../models/Transactions');
 const Categories = require('../models/Categories');
 const BankAccounts = require('../models/BankAccounts');
 const CreditCards = require('../models/CreditCards');
+const Invoices = require('../models/Invoices');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -48,7 +49,11 @@ const commands = {
     transactions: {
       description: 'List all transactions of month: organizzer list transactions',
       exec: Transactions.list
-    }
+    },
+    invoices: {
+      description: 'List invoices by credit card: organizzer list invoices <credit-card-title>',
+      exec: Invoices.list
+    },
   },
   more: {
     category: {
@@ -66,7 +71,11 @@ const commands = {
     transaction: {
       description: 'Get details a transaction: organizzer more transaction <id>',
       exec: Transactions.more
-    }
+    },
+    invoice: {
+      description: 'Get invoice\'s transactions by credit card: organizzer more invoice <credit-card-title> --invoice=<invoice-date>',
+      exec: Invoices.more
+    },
   },
   edit: {
     category: {
@@ -99,6 +108,12 @@ const commands = {
   reset: {
     description: 'Reset your tokens!',
     exec: InitUser
+  },
+  pay: {
+    invoice: {
+      description: 'Pay invoice: organizzer pay invoice <credit-card-title> --invoice=<invoice-date>',
+      exec: Invoices.pay
+    },
   }
 };
 

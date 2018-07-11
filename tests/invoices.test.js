@@ -123,46 +123,4 @@ describe('Invoices test', () => {
     mock.onGet(payUrl).reply(200, invoiceExample);
     expect(Invoices.pay({ _: ['Visa'], invoice: '2014-12-03' })).resolves.toEqual({ status: 'Invoice paid successfully!' });
   });
-  /*
-
-  test('Create invoice', () => {
-    const response = bankInvoiceExample;
-
-    const result = {
-      invoice: 'Bradesco CC',
-      status: 'Invoice created!',
-    };
-
-    mock.onPost('invoices').reply(200, response)
-    expect(Invoices.create({ _: ['Bradesco CC'] })).resolves.toEqual(result);
-  });
-
-  test('Update invoice', () => {
-    const response = bankInvoiceExample;
-
-    const result = {
-      invoice: 'Bradesco',
-      status: 'Invoice updated!',
-    };
-
-    const responsePut = Object.assign({}, response, { name: 'Bradesco' })
-
-    mock.onGet('invoices').reply(200, response);
-    mock.onPut(`invoices/${response.id}`).reply(200, responsePut)
-    expect(Invoices.edit({ _: ['Bradesco', 'Bradesco'] })).resolves.toEqual(result);
-  });
-
-  test('Delete invoice', () => {
-    const response = bankInvoiceExample;
-
-    const result = {
-      status: 'Invoice deleted!',
-      invoice: 'Bradesco CC'
-    };
-
-    mock.onGet('invoices').reply(200, response);
-    mock.onDelete(`invoices/${response.id}`).reply(200, response)
-    expect(Invoices.delete({ _: ['Bradesco'] })).resolves.toEqual(result);
-  });
-  */
 });

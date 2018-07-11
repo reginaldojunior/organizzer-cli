@@ -35,6 +35,10 @@ const commands = {
       description: 'List bank accounts',
       exec: BankAccounts.list
     },
+    transactions: {
+      description: 'List all transactions of month: organizze list transactions',
+      exec: Transactions.list
+    }
   },
   more: {
     category: {
@@ -44,6 +48,10 @@ const commands = {
     account: {
       description: 'Show account details: organizzer more account <title>',
       exec: BankAccounts.more
+    },
+    transaction: {
+      description: 'Get details a transaction: organizze more transaction <id>',
+      exec: Transactions.more
     }
   },
   edit: {
@@ -71,13 +79,13 @@ const commands = {
     exec: InitUser
   }
 };
-const action = argv._.shift();
-const type = argv._.shift();
-
 
 if (!config.get('username') || !config.get('token')) {
-  InitUser().then(() => process.exit());
+  argv._.unshift('reset');
 }
+
+const action = argv._.shift();
+const type = argv._.shift();
 
 if (
   !action ||

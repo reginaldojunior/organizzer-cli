@@ -40,14 +40,14 @@ module.exports = {
   },
   edit: async (args) => {
     argscheck(args);
-    const oldName = args._.shift();
-    const name = args._.shift();
+    const title = args._.shift();
+    const name = args.title || '';
 
-    if (!name) {
+    if (!title) {
       throw new Error('You must provide a new name too!');
     }
 
-    const found = await findCategory(oldName);
+    const found = await findCategory(title);
     let {data} = await api.put(`/categories/${found.id}`, { name });
     return {
       status: 'Category updated!',

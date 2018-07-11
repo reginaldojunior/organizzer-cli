@@ -70,7 +70,7 @@ const commands = {
   },
   edit: {
     category: {
-      description: 'Edit category title: organizzer edit category <old-title> <new-title>',
+      description: 'Edit category title: organizzer edit category <old-title> --title=<new-title>',
       exec: Categories.edit
     },
     account: {

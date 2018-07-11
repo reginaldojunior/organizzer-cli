@@ -12,6 +12,7 @@ const config = new Configstore('organizze');
 
 const prettyjson = require('prettyjson');
 const chalk = require('chalk');
+
 const commands = {
   create: {
     transaction: {
@@ -27,7 +28,7 @@ const commands = {
       exec: BankAccounts.create
     },
     credit_card: {
-      description: 'Create credit card: organizzer create credit_card <title>',
+      description: 'Create credit card: organizzer create credit_card <title> --network=<network> --due=<due day> --closing=<closing day> --limit=<limit>',
       exec: CreditCards.create
     },
   },
@@ -77,8 +78,8 @@ const commands = {
       exec: BankAccounts.edit
     },
     credit_card: {
-      description: 'Edit credit card title: organizzer edit credit_card <old-title> <new-title>',
-      exec: BankAccounts.edit
+      description: 'Edit credit card: organizzer create credit_card <old-title> --title=<new-title> --due=<due day> --closing=<closing day> --invoices-since=<invoices-since>',
+      exec: CreditCards.edit
     },
   },
   delete: {
@@ -143,8 +144,24 @@ const run = async () => {
       console.log(prettyjson.render(results));
     }
     return;
-  } catch (e) {
-    console.error(chalk.red(e));
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status === 422) {
+        console.log(chalk.red(prettyjson.render(error.response.data.errors)));
+      } else {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
     return;
   }
 };

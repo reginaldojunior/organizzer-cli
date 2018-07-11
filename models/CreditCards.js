@@ -21,7 +21,7 @@ const findCreditCard = async (creditCardName) => {
 
 const argscheck = args => {
   if (!args._ || args._.length === 0) {
-    throw new Error('You did not provide any creditCard name!');
+    throw new Error('You did not provide any credit card title!');
   }
 
   return true;
@@ -40,15 +40,16 @@ module.exports = {
   },
   edit: async (args) => {
     argscheck(args);
-    const oldName = args._.shift();
-    const name = args._.shift();
+    const name = args._.join(' ');
+    const body = {
+      name: args.title,
+      due_day: parseInt(args.due) || 1,
+      closing_day: parseInt(args.closing) || 28,
+      update_invoices_since: args['invoices-since'] || moment().format('YYYY-MM-DD')
+    };
 
-    if (!name) {
-      throw new Error('You must provide a new name too!');
-    }
-
-    const found = await findCreditCard(oldName);
-    let {data} = await api.put(`/credit_cards/${found.id}`, { name });
+    const found = await findCreditCard(name);
+    let {data} = await api.put(`/credit_cards/${found.id}`, body);
     return {
       status: 'Credit Card updated!',
       credit_card: data.name
@@ -56,11 +57,16 @@ module.exports = {
   },
   create: async (args) => {
     argscheck(args);
-    const name = args._.join(' ');
-    const description = args.description || '';
-    const type = args.type || 'checking';
+    const body = {
+      name: args._.join(' '),
+      card_network: args.network || '',
+      due_day: parseInt(args.due) || 1,
+      closing_day: parseInt(args.closing) || 28,
+      limit: (parseInt(args.limit) * 100) || 0
+    };
 
-    let {data} = await api.post('/credit_cards', { name, description, type });
+    let {data} = await api.post('/credit_cards', body);
+
     return {
       status: 'Credit Card created!',
       credit_card: data.name

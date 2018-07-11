@@ -55,7 +55,14 @@ describe('CreditCards test', () => {
     };
 
     mock.onPost('credit_cards').reply(200, response)
-    expect(CreditCards.create({ _: ['Visa Exclusive'] })).resolves.toEqual(result);
+    const args = {
+      _: ['Visa Exclusive'],
+      network: 'hipercard',
+      due: 15,
+      closing: 28,
+      limit: 120000
+    };
+    expect(CreditCards.create(args)).resolves.toEqual(result);
   });
 
   test('Update credit_card', () => {
@@ -70,7 +77,14 @@ describe('CreditCards test', () => {
 
     mock.onGet('credit_cards').reply(200, response);
     mock.onPut(`credit_cards/${response.id}`).reply(200, responsePut)
-    expect(CreditCards.edit({ _: ['Visa Exclusive', 'Visa'] })).resolves.toEqual(result);
+    const args = {
+      _: ['Visa Exclusive'],
+      due: 15,
+      closing: 28,
+      title: 'Visa',
+      'invoices-since': '2018-01-01'
+    };
+    expect(CreditCards.edit(args)).resolves.toEqual(result);
   });
 
   test('Delete credit_card', () => {
@@ -86,3 +100,4 @@ describe('CreditCards test', () => {
     expect(CreditCards.delete({ _: ['Visa'] })).resolves.toEqual(result);
   });
 });
+

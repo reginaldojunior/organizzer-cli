@@ -7,12 +7,11 @@ build:
     dependencies:
         before:
             - npm install
-    tests:
-        before:
-            - npm test --coverage-clover=clover
-        override:
-            -
-                command: 'npm test'
-                coverage:
-                    file: 'coverage/clover.xml'
-                    format: 'clover'
+            - npm install istanbul
+        tests:
+            override:
+                -
+                    command: 'istanbul cover --report clover npm test'
+                    coverage:
+                        file: 'coverage/clover.xml'
+                        format: 'clover'

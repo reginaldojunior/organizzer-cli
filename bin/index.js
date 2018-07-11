@@ -25,12 +25,20 @@ const commands = {
     categories: {
       description: 'List categories',
       exec: Categories.list
+    },
+    transactions: {
+      description: 'List all transactions of month: organizze list transactions',
+      exec: Transactions.list
     }
   },
   more: {
     category: {
       description: 'Show category details: organizze more category <title>',
       exec: Categories.more
+    },
+    transaction: {
+      description: 'Get details a transaction: organizze more transaction <id>',
+      exec: Transactions.more
     }
   },
   edit: {

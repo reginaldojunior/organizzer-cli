@@ -29,8 +29,8 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
     - [ ] Get invoice details
     - [ ] Invoice's payments
 - Transactions
-  - [ ] List transactions
-  - [ ] Get details of a transaction
+  - [x] List transactions
+  - [x] Get details of a transaction
   - [ ] Create a transaction
   - [ ] Update a transaction
   - [ ] Delete a transaction
@@ -48,7 +48,7 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
 
  - Clone this repository
  - Run `npm install`
- - Configure your access on env.js
+ - Run `organizzer reset`
  - Run `organizzer help`
  
 ### Contribuing

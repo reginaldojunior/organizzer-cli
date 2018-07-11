@@ -76,7 +76,7 @@ module.exports = {
     let found = await findAccount(accountName);
     
     let created_at = moment(found.created_at).format('DD/MM/YYYY').toString();
-    let updated_at = moment(found.created_at).format('DD/MM/YYYY').toString();
+    let updated_at = moment(found.updated_at).format('DD/MM/YYYY').toString();
 
     let result = {
       name: found.name,

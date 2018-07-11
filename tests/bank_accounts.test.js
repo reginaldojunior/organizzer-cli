@@ -30,7 +30,7 @@ describe('BankAccounts test', () => {
       archived: 'no',
       default: 'yes',
       type: 'checking',
-      'created at': '31/08/2017',
+      'created at': '22/06/2017',
       'updated at': '31/08/2017',
     };
 
@@ -61,7 +61,7 @@ describe('BankAccounts test', () => {
     const responsePut = Object.assign({}, response, { name: 'Bradesco' })
 
     mock.onGet('accounts').reply(200, response);
-    mock.onPut(`accounts/0`).reply(200, responsePut)
+    mock.onPut(`accounts/${response.id}`).reply(200, responsePut)
     expect(BankAccounts.edit({ _: ['Bradesco', 'Bradesco'] })).resolves.toEqual(result);
   });
 
@@ -74,7 +74,7 @@ describe('BankAccounts test', () => {
     };
 
     mock.onGet('accounts').reply(200, response);
-    mock.onDelete(`accounts/0`).reply(200, response[0])
+    mock.onDelete(`accounts/${response.id}`).reply(200, response)
     expect(BankAccounts.delete({ _: ['Bradesco'] })).resolves.toEqual(result);
   });
 });

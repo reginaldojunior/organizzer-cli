@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "bin": {
-    "organizze": "./bin/index.js"
+    "organizzer": "./bin/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",

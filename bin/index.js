@@ -18,7 +18,7 @@ const commands = {
       exec: () => {}
     },
     category: {
-      description: 'Create category: organizze create category <title>',
+      description: 'Create category: organizzer create category <title>',
       exec: Categories.create
     },
     account: {
@@ -28,21 +28,21 @@ const commands = {
   },
   list: {
     categories: {
-      description: 'List categories',
+      description: 'List categories: organizzer list categories',
       exec: Categories.list
     },
     accounts: {
-      description: 'List bank accounts',
+      description: 'List bank accounts: organizzer list accounts',
       exec: BankAccounts.list
     },
     transactions: {
-      description: 'List all transactions of month: organizze list transactions',
+      description: 'List all transactions of month: organizzer list transactions',
       exec: Transactions.list
     }
   },
   more: {
     category: {
-      description: 'Show category details: organizze more category <title>',
+      description: 'Show category details: organizzer more category <title>',
       exec: Categories.more
     },
     account: {
@@ -50,13 +50,13 @@ const commands = {
       exec: BankAccounts.more
     },
     transaction: {
-      description: 'Get details a transaction: organizze more transaction <id>',
+      description: 'Get details a transaction: organizzer more transaction <id>',
       exec: Transactions.more
     }
   },
   edit: {
     category: {
-      description: 'Edit category title: organizze edit category <old-title> <new-title>',
+      description: 'Edit category title: organizzer edit category <old-title> <new-title>',
       exec: Categories.edit
     },
     account: {
@@ -66,7 +66,7 @@ const commands = {
   },
   delete: {
     category: {
-      description: 'Delete category: organizze delete category <title>',
+      description: 'Delete category: organizzer delete category <title>',
       exec: Categories.delete
     },
     account: {

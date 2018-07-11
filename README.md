@@ -19,11 +19,11 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
   - [x] Create bank account
   - [x] Delete bank account
 - Credit Cards
-  - [ ] List credit cards
-  - [ ] Get details of a credit card
-  - [ ] Create a credit card
-  - [ ] Update a credit card
-  - [ ] Delete a credit card
+  - [x] List credit cards
+  - [x] Get details of a credit card
+  - [x] Create a credit card
+  - [x] Update a credit card
+  - [x] Delete a credit card
 - Invoices
   - [ ] List invoices
   - [ ] Get invoice details

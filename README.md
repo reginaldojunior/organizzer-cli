@@ -2,6 +2,10 @@
   <img src="https://lh3.googleusercontent.com/-mRGVcZwFNWU63y0ScjwXP3wnSXsgOWBaU7YA5pEnWaKcXehdJtOwZiwAZ8VtrVq4A6V" alt="Organizzer" width="230" />
 </p>
 
+<p align="center">
+  <img src="https://travis-ci.org/reginaldojunior/organizzer-cli.svg?branch=master">
+</p>
+
 # Organizze-CLI
 
 Organizze CLI is a independent project to manage finances on [Organizze](https://organizze.com.br) through command line

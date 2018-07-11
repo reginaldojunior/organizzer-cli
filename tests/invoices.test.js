@@ -1,28 +1,51 @@
 const api = require('../models/api');
 const Adapter = require('axios-mock-adapter');
 const mock = new Adapter(api);
-const BankAccounts = require('../models/BankAccounts');
-const bankAccountExample = {
+const Invoices = require('../models/Invoices');
+const creditCardExample = {
   id: 3,
-  name: 'Bradesco CC',
-  description: 'Bradesco',
-  archived: false,
-  created_at: '2017-06-22T16:17:03-03:00',
-  updated_at: '2017-08-31T22:24:24-03:00',
-  default: true,
-  type: 'checking'
+  name: 'Visa Exclusive',
+  description: 'Visa Description',
+  card_network: 'visa',
+  closing_day: 4,
+  due_day: 17,
+  limit_cents: 1200000,
+  kind: 'credit_card',
+  archived: true,
+  default: false,
+  created_at: '2018-06-22T16:45:30-03:00',
+  updated_at: '2018-09-01T18:18:48-03:00'
+};
+const invoiceExample = {
+  id: 180,
+  date: '2015-01-15',
+  starting_date: '2014-12-03',
+  closing_date: '2015-01-02',
+  amount_cents: 0,
+  payment_amount_cents: 0,
+  balance_cents: 0,
+  previous_balance_cents: 0,
+  credit_card_id: 3
 };
 
-describe('BankAccounts test', () => {
-  test('BankAccounts has been listed correctly', () => {
-    const response = [bankAccountExample];
+mock.onGet('credit_cards').reply(200, [creditCardExample]);
+mock.onGet(`credit_cards/${creditCardExample.id}/invoices`).reply(200, [invoiceExample]);
 
-    mock.onGet('accounts').reply(200, response)
-    expect(BankAccounts.list()).resolves.toEqual(['Bradesco CC']);
+describe('Invoices test', () => {
+  test('Invoices has been listed correctly', () => {
+    let result = {
+      'start date': '03/12/2014',
+      'end date': '02/01/2015',
+      amount: 0,
+      payment: 0,
+      balance: 0
+    };
+    expect(Invoices.list({ _: ['Visa'] })).resolves.toEqual([result]);
   });
 
-  test('Get account details', () => {
-    const response = [bankAccountExample];
+  /*
+  test('Get invoice details', () => {
+    const response = [bankInvoiceExample];
 
     const result = {
       name: 'Bradesco CC',
@@ -34,47 +57,48 @@ describe('BankAccounts test', () => {
       'updated at': '31/08/2017',
     };
 
-    mock.onGet('accounts').reply(200, response);
-    expect(BankAccounts.more({ _: ['Bradesco'] })).resolves.toEqual(result);
+    mock.onGet('invoices').reply(200, response);
+    expect(Invoices.more({ _: ['Bradesco'] })).resolves.toEqual(result);
   });
 
-  test('Create account', () => {
-    const response = bankAccountExample;
+  test('Create invoice', () => {
+    const response = bankInvoiceExample;
 
     const result = {
-      account: 'Bradesco CC',
-      status: 'Account created!',
+      invoice: 'Bradesco CC',
+      status: 'Invoice created!',
     };
 
-    mock.onPost('accounts').reply(200, response)
-    expect(BankAccounts.create({ _: ['Bradesco CC'] })).resolves.toEqual(result);
+    mock.onPost('invoices').reply(200, response)
+    expect(Invoices.create({ _: ['Bradesco CC'] })).resolves.toEqual(result);
   });
 
-  test('Update account', () => {
-    const response = bankAccountExample;
+  test('Update invoice', () => {
+    const response = bankInvoiceExample;
 
     const result = {
-      account: 'Bradesco',
-      status: 'Account updated!',
+      invoice: 'Bradesco',
+      status: 'Invoice updated!',
     };
 
     const responsePut = Object.assign({}, response, { name: 'Bradesco' })
 
-    mock.onGet('accounts').reply(200, response);
-    mock.onPut(`accounts/${response.id}`).reply(200, responsePut)
-    expect(BankAccounts.edit({ _: ['Bradesco', 'Bradesco'] })).resolves.toEqual(result);
+    mock.onGet('invoices').reply(200, response);
+    mock.onPut(`invoices/${response.id}`).reply(200, responsePut)
+    expect(Invoices.edit({ _: ['Bradesco', 'Bradesco'] })).resolves.toEqual(result);
   });
 
-  test('Delete account', () => {
-    const response = bankAccountExample;
+  test('Delete invoice', () => {
+    const response = bankInvoiceExample;
 
     const result = {
-      status: 'Account deleted!',
-      account: 'Bradesco CC'
+      status: 'Invoice deleted!',
+      invoice: 'Bradesco CC'
     };
 
-    mock.onGet('accounts').reply(200, response);
-    mock.onDelete(`accounts/${response.id}`).reply(200, response)
-    expect(BankAccounts.delete({ _: ['Bradesco'] })).resolves.toEqual(result);
+    mock.onGet('invoices').reply(200, response);
+    mock.onDelete(`invoices/${response.id}`).reply(200, response)
+    expect(Invoices.delete({ _: ['Bradesco'] })).resolves.toEqual(result);
   });
+  */
 });

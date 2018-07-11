@@ -1,6 +1,24 @@
 const api = require('./api');
 const moment = require('moment');
 
+const findCreditCard = async (title) => {
+  let {data} = await api.get('/credit_cards');
+  let found = false;
+
+  (Array.isArray(data) ? data : [data]).forEach(cat => {
+    let match = cat.name.match(new RegExp(title, 'g'));
+    if (match && match[0]) {
+      found = cat;
+    }
+  });
+
+  if (!found) {
+    throw new Error('This credit card was not found!');
+  }
+
+  return found;
+};
+
 const findInvoice = async (creditCardId, invoiceName) => {
   let {data} = await api.get(`/credit_cards/${creditCardId}/invoices`);
   let found = false;
@@ -73,8 +91,19 @@ module.exports = {
       throw new Error('You must provide a credit card title!');
     }
 
-    let {data} = await api.get('/invoices');
-    return Object.values(data.map(invoice => invoice.name));
+    let creditCard = await findCreditCard(creditCardTitle);
+    let {data} = await api.get(`/credit_cards/${creditCard.id}/invoices`);
+    let results = data.map(invoice => {
+      return {
+        'start date': moment(invoice.starting_date).format('DD/MM/YYYY'),
+        'end date': moment(invoice.closing_date).format('DD/MM/YYYY'),
+        amount: invoice.amount_cents / 100,
+        payment: invoice.payment_amount_cents / 100,
+        balance: invoice.balance_cents / 100
+      };
+    });
+
+    return results;
   },
   more: async (args) => {
     argscheck(args);

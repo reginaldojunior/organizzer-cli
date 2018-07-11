@@ -2,100 +2,73 @@ const api = require('../models/api');
 const Adapter = require('axios-mock-adapter');
 const mock = new Adapter(api);
 const Categories = require('../models/Categories');
+const categoryExample = {
+  id: 6,
+  name: 'Marketing',
+  color: '8dd47f',
+  parent_id: null,
+  created_at: '2015-09-15T21:20:44-03:00',
+  updated_at: '2015-09-15T21:20:44-03:00'
+};
 
 describe('Categories test', () => {
   test('Categories has been listed correctly', () => {
-    const response = [
-      {
-        id: 0,
-        name: 'Lazer',
-        color: '#fffffff',
-        created_at: '2018'
-      }
-    ];
+    const response = [categoryExample];
 
     mock.onGet('categories').reply(200, response)
-    expect(Categories.list()).resolves.toEqual(['Lazer']);
+    expect(Categories.list()).resolves.toEqual([categoryExample.name]);
   });
 
   test('Get category details', () => {
-    const response = [
-      {
-        id: 0,
-        name: 'Lazer',
-        created_at: '2018-07-10 17:15:00',
-        updated_at: '2018-07-10 17:15:00'
-      }
-    ];
+    const response = [categoryExample];
 
     const result = {
-      name: 'Lazer',
-      'created at': '10/07/2018',
-      'updated at': '10/07/2018',
+      name: categoryExample.name,
+      'created at': '15/09/2015',
+      'updated at': '15/09/2015',
     };
 
     mock.onGet('categories').reply(200, response);
-    expect(Categories.more({ _: ['Lazer'] })).resolves.toEqual(result);
+    expect(Categories.more({ _: [categoryExample.name] })).resolves.toEqual(result);
   });
 
   test('Create category', () => {
-    const response = [
-      {
-        id: 0,
-        name: 'Lazer',
-        created_at: '2018-07-10 17:15:00',
-        updated_at: '2018-07-10 17:15:00'
-      }
-    ];
+    const response = [categoryExample];
 
     const result = {
-      category: 'Lazer',
+      category: categoryExample.name,
       status: 'Category created!',
     };
 
     mock.onPost('categories').reply(200, response)
-    expect(Categories.create({ _: ['Lazer'] })).resolves.toEqual(result);
+    expect(Categories.create({ _: [categoryExample.name] })).resolves.toEqual(result);
   });
 
   test('Update category', () => {
-    const response = [
-      {
-        id: 0,
-        name: 'Lazer',
-        created_at: '2018-07-10 17:15:00',
-        updated_at: '2018-07-10 17:15:00'
-      }
-    ];
+    const response = [categoryExample];
 
     const result = {
-      category: 'Lazer 2',
+      category: 'New Category Name',
       status: 'Category updated!',
     };
 
-    const responsePut = Object.assign({}, response, { name: 'Lazer 2' })
+    const responsePut = Object.assign(categoryExample, { name: result.category })
 
     mock.onGet('categories').reply(200, response);
-    mock.onPut(`categories/0`).reply(200, responsePut)
-    expect(Categories.edit({ _: ['Lazer', 'Lazer 2'] })).resolves.toEqual(result);
+    mock.onPut(`categories/${categoryExample.id}`).reply(200, responsePut)
+    expect(Categories.edit({ _: [categoryExample.name], title: 'New Category Name' })).resolves.toEqual(result);
   });
 
   test('Delete category', () => {
-    const response = [
-      {
-        id: 0,
-        name: 'Lazer',
-        created_at: '2018-07-10 17:15:00',
-        updated_at: '2018-07-10 17:15:00'
-      }
-    ];
+    const response = [categoryExample];
 
     const result = {
       status: 'Category deleted!',
-      category: 'Lazer'
+      category: categoryExample.name
     };
 
     mock.onGet('categories').reply(200, response);
-    mock.onDelete(`categories/0`).reply(200, response[0])
-    expect(Categories.delete({ _: ['Lazer'] })).resolves.toEqual(result);
+    mock.onDelete(`categories/${categoryExample.id}`).reply(200, categoryExample)
+    expect(Categories.delete({ _: [categoryExample.name] })).resolves.toEqual(result);
   });
 });

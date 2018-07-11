@@ -3,6 +3,7 @@
 const Transactions = require('../models/Transactions');
 const Categories = require('../models/Categories');
 const BankAccounts = require('../models/BankAccounts');
+const CreditCards = require('../models/CreditCards');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -11,6 +12,7 @@ const config = new Configstore('organizze');
 
 const prettyjson = require('prettyjson');
 const chalk = require('chalk');
+
 const commands = {
   create: {
     transaction: {
@@ -24,7 +26,11 @@ const commands = {
     account: {
       description: 'Create account: organizzer create account <title>',
       exec: BankAccounts.create
-    }
+    },
+    credit_card: {
+      description: 'Create credit card: organizzer create credit_card <title> --network=<network> --due=<due day> --closing=<closing day> --limit=<limit>',
+      exec: CreditCards.create
+    },
   },
   list: {
     categories: {
@@ -34,6 +40,10 @@ const commands = {
     accounts: {
       description: 'List bank accounts: organizzer list accounts',
       exec: BankAccounts.list
+    },
+    credit_cards: {
+      description: 'List credit cards: organizzer list credit_cards',
+      exec: CreditCards.list
     },
     transactions: {
       description: 'List all transactions of month: organizzer list transactions',
@@ -49,6 +59,10 @@ const commands = {
       description: 'Show account details: organizzer more account <title>',
       exec: BankAccounts.more
     },
+    credit_card: {
+      description: 'Show credit card details: organizzer more credit_card <title>',
+      exec: CreditCards.more
+    },
     transaction: {
       description: 'Get details a transaction: organizzer more transaction <id>',
       exec: Transactions.more
@@ -56,13 +70,17 @@ const commands = {
   },
   edit: {
     category: {
-      description: 'Edit category title: organizzer edit category <old-title> <new-title>',
+      description: 'Edit category title: organizzer edit category <old-title> --title=<new-title>',
       exec: Categories.edit
     },
     account: {
       description: 'Edit account title: organizzer edit account <old-title> <new-title>',
       exec: BankAccounts.edit
-    }
+    },
+    credit_card: {
+      description: 'Edit credit card: organizzer create credit_card <old-title> --title=<new-title> --due=<due day> --closing=<closing day> --invoices-since=<invoices-since>',
+      exec: CreditCards.edit
+    },
   },
   delete: {
     category: {
@@ -72,7 +90,11 @@ const commands = {
     account: {
       description: 'Delete account: organizzer delete account <title>',
       exec: BankAccounts.delete
-    }
+    },
+    credit_card: {
+      description: 'Delete credit card: organizzer delete credit_card <title>',
+      exec: CreditCards.delete
+    },
   },
   reset: {
     description: 'Reset your tokens!',
@@ -122,8 +144,24 @@ const run = async () => {
       console.log(prettyjson.render(results));
     }
     return;
-  } catch (e) {
-    console.error(chalk.red(e));
+  } catch (error) {
+    if (error.response) {
+      if (error.response.status === 422) {
+        console.log(chalk.red(prettyjson.render(error.response.data.errors)));
+      } else {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
     return;
   }
 };

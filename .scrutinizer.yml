@@ -1,0 +1,17 @@
+build:
+    environment:
+        node: '9'
+    cache:
+        directories:
+            - node_modules/
+    dependencies:
+        before:
+            - npm install
+            - npm install istanbul
+        tests:
+            override:
+                -
+                    command: 'istanbul cover --report clover npm test'
+                    coverage:
+                        file: 'coverage/clover.xml'
+                        format: 'clover'

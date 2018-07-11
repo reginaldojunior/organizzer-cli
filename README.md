@@ -2,6 +2,10 @@
   <img src="https://lh3.googleusercontent.com/-mRGVcZwFNWU63y0ScjwXP3wnSXsgOWBaU7YA5pEnWaKcXehdJtOwZiwAZ8VtrVq4A6V" alt="Organizzer" width="230" />
 </p>
 
+<p align="center">
+  <img src="https://travis-ci.org/reginaldojunior/organizzer-cli.svg?branch=master">
+</p>
+
 # Organizze-CLI
 
 Organizze CLI is a independent project to manage finances on [Organizze](https://organizze.com.br) through command line
@@ -19,15 +23,15 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
   - [x] Create bank account
   - [x] Delete bank account
 - Credit Cards
-  - [ ] List credit cards
-  - [ ] Get details of a credit card
-  - [ ] Create a credit card
-  - [ ] Update a credit card
-  - [ ] Delete a credit card
-  - Invoices
-    - [ ] List invoices
-    - [ ] Get invoice details
-    - [ ] Invoice's payments
+  - [x] List credit cards
+  - [x] Get details of a credit card
+  - [x] Create a credit card
+  - [x] Update a credit card
+  - [x] Delete a credit card
+- Invoices
+  - [ ] List invoices
+  - [ ] Get invoice details
+  - [ ] Invoice's payments
 - Transactions
   - [x] List transactions
   - [x] Get details of a transaction

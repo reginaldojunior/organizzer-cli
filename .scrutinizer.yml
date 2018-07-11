@@ -12,7 +12,7 @@ build:
             - npm test --coverage-clover=clover
         override:
             -
-                command: 'npm test coverage-test'
+                command: 'npm test'
                 coverage:
                     file: 'coverage/clover.xml'
                     format: 'clover'

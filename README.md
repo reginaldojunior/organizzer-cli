@@ -35,9 +35,9 @@ Organizze CLI is a independent project to manage finances on [Organizze](https:/
 - Transactions
   - [x] List transactions
   - [x] Get details of a transaction
-  - [ ] Create a transaction
-  - [ ] Update a transaction
-  - [ ] Delete a transaction
+  - [x] Create a transaction
+  - [x] Update a transaction
+  - [x] Delete a transaction
 - Users
   - [x] List users(that's business only)
   - [x] Get user details

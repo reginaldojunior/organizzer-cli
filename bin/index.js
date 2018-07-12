@@ -28,6 +28,10 @@ const commands = {
       description: 'Create credit card: organizzer create credit_card <title> --network=<network> --due=<due day> --closing=<closing day> --limit=<limit>',
       exec: CreditCards.create
     },
+    transaction: {
+      description: 'Create transaction: organizzer create transaction <date> --description=<description> --notes=<notes> --amount=<amount>',
+      exec: Transactions.create
+    },
   },
   list: {
     categories: {
@@ -83,8 +87,12 @@ const commands = {
       exec: BankAccounts.edit
     },
     credit_card: {
-      description: 'Edit credit card: organizzer create credit_card <old-title> --title=<new-title> --due=<due day> --closing=<closing day> --invoices-since=<invoices-since>',
+      description: 'Edit credit card: organizzer edit credit_card <old-title> --title=<new-title> --due=<due day> --closing=<closing day> --invoices-since=<invoices-since>',
       exec: CreditCards.edit
+    },
+    transaction: {
+      description: 'Edit transaction: organizzer edit transaction <date> --description=<description> --notes=<notes> --amount=<amount>',
+      exec: Transactions.edit
     },
   },
   delete: {
@@ -99,6 +107,10 @@ const commands = {
     credit_card: {
       description: 'Delete credit card: organizzer delete credit_card <title>',
       exec: CreditCards.delete
+    },
+    transaction: {
+      description: 'Delete transaction: organizzer delete transaction <date>',
+      exec: Transactions.delete
     },
   },
   reset: {

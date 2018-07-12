@@ -56,6 +56,9 @@ mock.onGet('transactions').reply(200, [transactionExample]);
 mock.onGet(`transactions/${transactionExample.id}`).reply(200, transactionExample);
 mock.onGet(`accounts/${transactionExample.account_id}`).reply(200, accountExample);
 mock.onGet(`credit_cards/${transactionExample.credit_card_id}`).reply(200, creditCardExample);
+mock.onPost('transactions').reply(200, transactionExample);
+mock.onPut(`transactions/${transactionExample.id}`).reply(200, transactionExample);
+mock.onDelete(`transactions/${transactionExample.id}`).reply(200, transactionExample);
 
 describe('Transactions Test', () => {
   test('Transactions has been listed correctly', () => {
@@ -91,5 +94,35 @@ describe('Transactions Test', () => {
     };
 
     expect(Transactions.more({ _: ['2015-09-06'] })).resolves.toEqual(result);
-  })
+  });
+
+  test('Create transaction', () => {
+    const args = {
+      _: ['2018-01-01'],
+      description: '',
+      notes: '',
+      amount: -150
+    };
+
+    expect(Transactions.create(args)).resolves.toEqual({ status: 'Transaction created!' });
+  });
+
+  test('Update transaction', () => {
+    const args = {
+      _: ['2015-09-06'],
+      description: '',
+      notes: '',
+      amount: -150
+    };
+
+    expect(Transactions.edit(args)).resolves.toEqual({ status: 'Transaction updated!' });
+  });
+
+  test('Delete transaction', () => {
+    const args = {
+      _: ['2015-09-06'],
+    };
+
+    expect(Transactions.delete(args)).resolves.toEqual({ status: 'Transaction deleted!' });
+  });
 })

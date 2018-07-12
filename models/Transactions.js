@@ -2,6 +2,72 @@ const api = require('./api');
 const moment = require('moment');
 
 const Transactions = {
+  create: async (args) => {
+    const date = args._.shift();
+
+    if (!date) {
+      throw new Error('You must provide a date!'); 
+    }
+
+    const body = {
+      description: args.description || '',
+      notes: args.note || '',
+      amount_cents: (parseInt(args.amount) * 100) || 0
+    };
+
+    await api.post('transactions', body);
+    return { status: 'Transaction created!' };
+  },
+  delete: async (args) => {
+    let date = args._.shift();
+
+    if (!date) {
+      throw new Error('You must provide a date!');
+    }
+
+    date = moment(date).format('YYYY-MM-DD').toString();
+
+    let {data} = await api.get('transactions');
+    const transaction = data
+      .filter(t => t.date === date)
+      .shift();
+
+    if (!transaction) {
+      throw new Error('Transaction not found!');
+    }
+
+    await api.delete(`transactions/${transaction.id}`);
+
+    return { status: 'Transaction deleted!' };
+  },
+  edit: async (args) => {
+    let date = args._.shift();
+
+    const body = {
+      description: args.description || '',
+      notes: args.note || '',
+      amount_cents: (parseInt(args.amount) * 100) || 0
+    };
+
+    if (!date) {
+      throw new Error('You must provide a date!');
+    }
+
+    date = moment(date).format('YYYY-MM-DD').toString();
+
+    let {data} = await api.get('transactions');
+    const transaction = data
+      .filter(t => t.date === date)
+      .shift();
+
+    if (!transaction) {
+      throw new Error('Transaction not found!');
+    }
+
+    await api.put(`transactions/${transaction.id}`, body);
+
+    return { status: 'Transaction updated!' };
+  },
   list: async () => {
     let {data} = await api.get('transactions');
 

@@ -1,142 +1,95 @@
 const api = require('../models/api');
 const Adapter = require('axios-mock-adapter');
 const mock = new Adapter(api);
-const Transactions = require("../models/Transactions")
+const Transactions = require('../models/Transactions')
+const transactionExample = {
+  id: 15,
+  description: 'SAQUE LOT',
+  date: '2015-09-06',
+  paid: false,
+  amount_cents: -15000,
+  total_installments: 1,
+  installment: 1,
+  recurring: false,
+  account_id: 3,
+  category_id: 21,
+  contact_id: null,
+  notes: '',
+  attachments_count: 0,
+  credit_card_id: 3,
+  credit_card_invoice_id: 189,
+  paid_credit_card_id: null,
+  paid_credit_card_invoice_id: null,
+  oposite_transaction_id: null,
+  oposite_account_id: null,
+  created_at: '2015-07-01T10:52:06-03:00',
+  updated_at: '2015-08-04T20:17:17-03:00'
+};
 
-describe("Transactions Test", () => {
-    test("Transactions has been listed correctly", () => {
-        const response = [
-            {
-                "id": 15,
-                "description": "SAQUE LOT",
-                "date": "2015-09-06",
-                "paid": false,
-                "amount_cents": -15000,
-                "total_installments": 1,
-                "installment": 1,
-                "recurring": false,
-                "account_id": 3,
-                "account_type": "CreditCard",
-                "category_id": 21,
-                "contact_id": null,
-                "notes": "",
-                "attachments_count": 0,
-                "credit_card_id": 3,
-                "credit_card_invoice_id": 189,
-                "paid_credit_card_id": null,
-                "paid_credit_card_invoice_id": null,
-                "oposite_transaction_id": null,
-                "oposite_account_id": null,
-                "created_at": "2015-07-01T10:52:06-03:00",
-                "updated_at": "2015-08-04T20:17:17-03:00"
-            },
-            {
-                "id": 31,
-                "description": "Lanche",
-                "date": "2015-09-02",
-                "paid": false,
-                "amount_cents": -2098,
-                "total_installments": 1,
-                "installment": 1,
-                "recurring": false,
-                "account_id": 3,
-                "account_type": "Account",
-                "category_id": 18,
-                "contact_id": null,
-                "notes": "",
-                "attachments_count": 0,
-                "credit_card_id": null,
-                "credit_card_invoice_id": null,
-                "paid_credit_card_id": null,
-                "paid_credit_card_invoice_id": null,
-                "oposite_transaction_id": 63,
-                "oposite_account_id": 4,
-                "created_at": "2015-08-20T18:00:20-03:00",
-                "updated_at": "2015-09-01T18:14:54-03:00"
-            },
-            {
-                "id": 63,
-                "description": "Gasolina",
-                "date": "2015-09-02",
-                "paid": false,
-                "amount_cents": 20000,
-                "total_installments": 1,
-                "installment": 1,
-                "recurring": false,
-                "account_id": 4,
-                "account_type": "Account",
-                "category_id": 18,
-                "contact_id": null,
-                "notes": "",
-                "attachments_count": 0,
-                "credit_card_id": null,
-                "credit_card_invoice_id": null,
-                "paid_credit_card_id": null,
-                "paid_credit_card_invoice_id": null,
-                "oposite_transaction_id": 31,
-                "oposite_account_id": 3,
-                "created_at": "2015-08-20T18:00:20-03:00",
-                "updated_at": "2015-09-01T18:14:54-03:00"
-            },
-            {
-                "id": 83,
-                "description": "Pagamento Julho de 2015",
-                "date": "2015-09-01",
-                "paid": true,
-                "amount_cents": -20000,
-                "total_installments": 1,
-                "installment": 1,
-                "recurring": false,
-                "account_id": 3,
-                "account_type": "Account",
-                "category_id": 21,
-                "contact_id": null,
-                "notes": null,
-                "attachments_count": 0,
-                "credit_card_id": null,
-                "credit_card_invoice_id": null,
-                "paid_credit_card_id": 3,
-                "paid_credit_card_invoice_id": 186,
-                "oposite_transaction_id": null,
-                "oposite_account_id": null,
-                "created_at": "2015-09-01T23:42:29-03:00",
-                "updated_at": "2015-09-01T23:42:29-03:00"
-            }
-        ]
+const accountExample = {
+  id: 3,
+  name: 'Bradesco CC',
+  description: 'Bradesco',
+  archived: false,
+  created_at: '2017-06-22T16:17:03-03:00',
+  updated_at: '2017-08-31T22:24:24-03:00',
+  default: true,
+  type: 'checking'
+};
 
-        mock.onGet('transactions').reply(200, response)
-        
-        expect(Transactions.list()).resolves.toEqual([{'id': '15'}]);
-    })
+const creditCardExample = {
+  id: 3,
+  name: 'Visa Exclusive',
+  description: 'Visa Description',
+  card_network: 'visa',
+  closing_day: 4,
+  due_day: 17,
+  limit_cents: 1200000,
+  kind: 'credit_card',
+  archived: true,
+  default: false,
+  created_at: '2018-06-22T16:45:30-03:00',
+  updated_at: '2018-09-01T18:18:48-03:00'
+};
 
+mock.onGet('transactions').reply(200, [transactionExample]);
+mock.onGet(`transactions/${transactionExample.id}`).reply(200, transactionExample);
+mock.onGet(`accounts/${transactionExample.account_id}`).reply(200, accountExample);
+mock.onGet(`credit_cards/${transactionExample.credit_card_id}`).reply(200, creditCardExample);
 
-    test("Get details of transaction", () => {
-        const response = {
-            "id": 15,
-            "description": "SAQUE LOT",
-            "date": "2015-09-06",
-            "paid": false,
-            "amount_cents": -15000,
-            "total_installments": 1,
-            "installment": 1,
-            "recurring": false,
-            "account_id": 3,
-            "category_id": 21,
-            "contact_id": null,
-            "notes": "",
-            "attachments_count": 0,
-            "credit_card_id": 3,
-            "credit_card_invoice_id": 189,
-            "paid_credit_card_id": null,
-            "paid_credit_card_invoice_id": null,
-            "oposite_transaction_id": null,
-            "oposite_account_id": null,
-            "created_at": "2015-07-01T10:52:06-03:00",
-            "updated_at": "2015-08-04T20:17:17-03:00"
-        }
+describe('Transactions Test', () => {
+  test('Transactions has been listed correctly', () => {
+    const result = [
+      {
+        description: 'SAQUE LOT',
+        date: '06/09/2015',
+        paid: 'no',
+        amount: -150,
+        'total installments': 1,
+        installment: 1,
+        recurring: 'no',
+        notes: '',
+        attachments: 0
+      }
+    ];
+    expect(Transactions.list()).resolves.toEqual(result);
+  })
 
-        mock.onGet('transactions/15').reply(200, response)
+  test('Get details of transaction', () => {
+    const result = {
+      description: 'SAQUE LOT',
+      date: '06/09/2015',
+      paid: 'no',
+      amount: -150,
+      'total installments': 1,
+      installment: 1,
+      recurring: 'no',
+      notes: '',
+      account: 'Bradesco CC',
+      credit_card: 'Visa Exclusive',
+      attachments: 0
+    };
 
-        expect(Transactions.list()).resolves.toEqual([{'description': 'SAQUE LOT'}]);
-    })
+    expect(Transactions.more({ _: ['2015-09-06'] })).resolves.toEqual(result);
+  })
 })

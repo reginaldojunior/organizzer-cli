@@ -16,10 +16,6 @@ const chalk = require('chalk');
 
 const commands = {
   create: {
-    transaction: {
-      description: '',
-      exec: () => {}
-    },
     category: {
       description: 'Create category: organizzer create category <title>',
       exec: Categories.create
@@ -69,7 +65,7 @@ const commands = {
       exec: CreditCards.more
     },
     transaction: {
-      description: 'Get details a transaction: organizzer more transaction <id>',
+      description: 'Get details of a transaction: organizzer more transaction <date>',
       exec: Transactions.more
     },
     invoice: {

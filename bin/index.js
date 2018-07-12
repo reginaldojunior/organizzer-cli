@@ -5,6 +5,7 @@ const Categories = require('../models/Categories');
 const BankAccounts = require('../models/BankAccounts');
 const CreditCards = require('../models/CreditCards');
 const Invoices = require('../models/Invoices');
+const Users = require('../models/Users');
 const InitUser = require('../models/Init');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -54,6 +55,10 @@ const commands = {
       description: 'List invoices by credit card: organizzer list invoices <credit-card-title>',
       exec: Invoices.list
     },
+    users: {
+      description: 'List users: organizzer list users',
+      exec: Users.list
+    },
   },
   more: {
     category: {
@@ -75,6 +80,10 @@ const commands = {
     invoice: {
       description: 'Get invoice\'s transactions by credit card: organizzer more invoice <credit-card-title> --invoice=<invoice-date>',
       exec: Invoices.more
+    },
+    user: {
+      description: 'Get user data: organizzer more user <email>',
+      exec: Users.more
     },
   },
   edit: {
